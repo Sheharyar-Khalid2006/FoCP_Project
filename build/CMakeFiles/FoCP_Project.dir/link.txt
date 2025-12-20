@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\FoCP_Project.dir/objects.a
+C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\FoCP_Project.dir/objects.a @CMakeFiles\FoCP_Project.dir\objects1.rsp
+g++  -Wall -Wextra  -static-libgcc -static-libstdc++ -mwindows -Wl,--whole-archive CMakeFiles\FoCP_Project.dir/objects.a -Wl,--no-whole-archive -o FoCP_Project.exe -Wl,--out-implib,libFoCP_Project.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\FoCP_Project.dir\linkLibs.rsp
