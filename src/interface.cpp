@@ -21,9 +21,8 @@ void simulate_investment(investment& inv) {
     int choice;
     bool exit = false;
 
-    std::cout << "\n\n╔════════════════════════════════════════════════════════╗\n";
-    std::cout << "║              STARTING SIMULATION                       ║\n";
-    std::cout << "╚════════════════════════════════════════════════════════╝\n\n";
+    std::cout << "\t\tSTARTING SIMULATION\n";
+    std::cout << "\n";
 
     std::cout << "Month | Fluctuation | Contribution | Portfolio Value\n";
     std::cout << "------|-------------|--------------|----------------\n";
@@ -70,19 +69,19 @@ void simulate_investment(investment& inv) {
                 choice = getintinput();
 
                 if (choice == 1) {
-                    std::cout << "\n Wise decision! Sometimes it's better to be safe than sorry.\n";
-                    std::cout << "   Final portfolio value: $" << std::fixed << std::setprecision(2)
+                    std::cout << "\nWise decision! Sometimes it's better to be safe than sorry.\n";
+                    std::cout << "Final portfolio value: $" << std::fixed << std::setprecision(2)
                         << inv.current_amount << "\n";
                     exit = true;
                     break;
                 }
                 else if (choice == 2) {
-                    std::cout << "\n Bold choice! Risk it for the biscuit.\n";
-                    std::cout << "   Be prepared to face the cruelty of the business world.\n";
+                    std::cout << "\nBold choice! Risk it for the biscuit.\n";
+                    std::cout << "Be prepared to face the cruelty of the business world.\n";
                     break;
                 }
                 else {
-                    std::cout << "\n✗ Please enter 1 or 2.\n";
+                    std::cout << "\nPlease enter 1 or 2.\n";
                 }
             }
             if (exit) break;
@@ -93,18 +92,15 @@ void simulate_investment(investment& inv) {
     }
 
     std::cout << "\n";
-    std::cout << "─────────────────────────────────────────────────────────\n";
+    std::cout << "------------------------------------------------\n";
 
     // Final statistics
     total_investment(inv);
     profit_loss(inv);
 
-    std::cout << "\n╔════════════════════════════════════════════════════════╗\n";
-    std::cout << "║           SIMULATION COMPLETED                         ║\n";
-    std::cout << "╚════════════════════════════════════════════════════════╝\n";
+    std::cout << "\t\tSIMULATION COMPLETED\n";
+    std::cout << "\n";
 }
-
-
 
 int selectMarketType() {
     int choice;
@@ -151,7 +147,7 @@ void updateLineChart(const vector<float>& values, int currentMonth) {
         } else if (h == 0) {
             cout << "  $" << fixed << setprecision(0) << setw(8) << minVal << " │";
         } else {
-            cout << "           │";
+            cout << "\t│";
         }
         
         for (int w = 0; w < chartWidth && w < values.size(); w++) {
@@ -186,47 +182,46 @@ string formatCurrency(float amount) {
 }
 
 void displaySeparator() {
-    cout << "─────────────────────────────────────────────────────────\n";
+    cout << "--------------------------------------------\n";
 }
 
 
 
 void displayProfitLoss(float amount) {
     if (amount >= 0) {
-        cout << "💰 Profit: +" << formatCurrency(amount);
+        cout << "Profit: +" << formatCurrency(amount);
     } else {
-        cout << "📉 Loss: " << formatCurrency(amount);
+        cout << "Loss: " << formatCurrency(amount);
     }
 }
 
 
 void displayMarketTypes() {
-    cout << "\n╔═════════════════════════════════════════════════════════╗\n";
-    cout << "║               SELECT MARKET CONDITION                   ║\n";
-    cout << "╠═════════════════════════════════════════════════════════╣\n";
-    cout << "║  1. STABLE MARKET                                       ║\n";
-    cout << "║     • Low volatility                                    ║\n";
-    cout << "║     • Fluctuation: ±2%                                  ║\n";
-    cout << "║     • Best for: Conservative investors                  ║\n";
-    cout << "║                                                         ║\n";
-    cout << "║  2. VOLATILE MARKET                                     ║\n";
-    cout << "║     • High volatility                                   ║\n";
-    cout << "║     • Fluctuation: ±5%                                  ║\n";
-    cout << "║     • Best for: Risk-tolerant investors                 ║\n";
-    cout << "║                                                         ║\n";
-    cout << "║  3. BULLISH MARKET (Bull Run)                          ║\n";
-    cout << "║     • Generally upward trend                            ║\n";
-    cout << "║     • Fluctuation: -1% to +6%                          ║\n";
-    cout << "║     • Best for: Growth seekers                          ║\n";
-    cout << "║                                                         ║\n";
-    cout << "║  4. BEARISH MARKET (Bear Market)                       ║\n";
-    cout << "║     • Generally downward trend                          ║\n";
-    cout << "║     • Fluctuation: -6% to +1%                          ║\n";
-    cout << "║     • Best for: Testing loss tolerance                  ║\n";
-    cout << "║                                                         ║\n";
-    cout << "║  5. CRISIS MARKET                                       ║\n";
-    cout << "║     • Extreme volatility                                ║\n";
-    cout << "║     • Fluctuation: ±10%                                 ║\n";
-    cout << "║     • Best for: Experienced investors only              ║\n";
-    cout << "╚═════════════════════════════════════════════════════════╝\n";
+    cout << "\n\n";
+    cout << "\t\tSELECT MARKET CONDITION\n";
+    cout << "1. STABLE MARKET\n";
+    cout << "\t• Low volatility\n";
+    cout << "\t• Fluctuation: ±2%\n";
+    cout << "\t• Best for: Conservative investors\n";
+    cout << "\n";
+    cout << "2. VOLATILE MARKET\n";
+    cout << "\t• High volatility\n";
+    cout << "\t• Fluctuation: ±5%\n";
+    cout << "\t• Best for: Risk-tolerant investors\n";
+    cout << "\n";
+    cout << "3. BULLISH MARKET (Bull Run)\n";
+    cout << "\t• Generally upward trend\n";
+    cout << "\t• Fluctuation: -1% to +6%\n";
+    cout << "\t• Best for: Growth seekers\n";
+    cout << "\n";
+    cout << "4. BEARISH MARKET (Bear Market)\n";
+    cout << "\t• Generally downward trend\n";
+    cout << "\t• Fluctuation: -6% to +1%\n";
+    cout << "\t• Best for: Testing loss tolerance\n";
+    cout << "\n";
+    cout << "5. CRISIS MARKET\n";
+    cout << "\t• Extreme volatility\n";
+    cout << "\t• Fluctuation: ±10%\n";
+    cout << "\t• Best for: Experienced investors only\n";
+    cout << "\n";
 }

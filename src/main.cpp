@@ -8,44 +8,44 @@
 using namespace std;
 
 void displayWelcome() {
-    cout << "\n╔════════════════════════════════════════════════╗\n";
-    cout << "║     INVESTMENT SIMULATION GAME                 ║\n";
-    cout << "║     Learn Investment Through Practice          ║\n";
-    cout << "╚════════════════════════════════════════════════╝\n";
+    cout << "\n";
+    cout << "\tINVESTMENT SIMULATION GAME\n";
+    cout << "\tLearn Investment Through Practice\n";
+    cout << "\n";
 }
 
 void displayMenu() {
-    cout << "\n┌─────────────── MAIN MENU ───────────────┐\n";
-    cout << "│  1. Start New Investment Simulation     │\n";
-    cout << "│  2. View Investment Summary              │\n";
-    cout << "│  3. Generate Growth Chart                │\n";
-    cout << "│  4. Generate Comparison Chart            │\n";
-    cout << "│  5. Reset Investment                     │\n";
-    cout << "│  6. How to Play                          │\n";
-    cout << "│  7. Exit                                 │\n";
-    cout << "└──────────────────────────────────────────┘\n";
+    cout << "\n\tMAIN MENU\n";
+    cout << "1. Start New Investment Simulation\n";
+    cout << "2. View Investment Summary\n";
+    cout << "3. Generate Growth Chart\n";
+    cout << "4. Generate Comparison Chart\n";
+    cout << "5. Reset Investment\n";
+    cout << "6. How to Play\n";
+    cout << "7. Exit\n";
+    cout << "\n";
     cout << "Enter your choice: ";
 }
 
 void displayInstructions() {
-    cout << "\n╔════════════════════════════════════════════════════════════╗\n";
-    cout << "║                    HOW TO PLAY                             ║\n";
-    cout << "╠════════════════════════════════════════════════════════════╣\n";
-    cout << "║ 1. Start with an initial investment amount                 ║\n";
-    cout << "║ 2. Choose monthly contribution amount                      ║\n";
-    cout << "║ 3. Select investment duration (max 36 months)              ║\n";
-    cout << "║ 4. Set a safe loss threshold (20-100%)                     ║\n";
-    cout << "║ 5. Watch your investment grow (or shrink) with market     ║\n";
-    cout << "║    fluctuations                                             ║\n";
-    cout << "║ 6. If losses exceed your threshold, you'll be warned       ║\n";
-    cout << "║ 7. Generate charts to visualize your investment journey    ║\n";
-    cout << "╠════════════════════════════════════════════════════════════╣\n";
-    cout << "║ TIPS:                                                       ║\n";
-    cout << "║ • Diversification helps reduce risk                         ║\n";
-    cout << "║ • Long-term investments often perform better                ║\n";
-    cout << "║ • Don't panic during market downturns                       ║\n";
-    cout << "║ • Regular monthly contributions help average costs          ║\n";
-    cout << "╚════════════════════════════════════════════════════════════╝\n";
+    cout << "\n\n";
+    cout << "\t\tHOW TO PLAY\n";
+    cout << "\n";
+    cout << "1. Start with an initial investment amount\n";
+    cout << "2. Choose monthly contribution amount\n";
+    cout << "3. Select investment duration (max 36 months)\n";
+    cout << "4. Set a safe loss threshold (20-100%)\n";
+    cout << "5. Watch your investment grow (or shrink) with market\n";
+    cout << "\t fluctuations\n";
+    cout << "6. If losses exceed your threshold, you'll be warned\n";
+    cout << "7. Generate charts to visualize your investment journey\n";
+    cout << "\n";
+    cout << "TIPS:\n";
+    cout << "• Diversification helps reduce risk\n";
+    cout << "• Long-term investments often perform better\n";
+    cout << "• Don't panic during market downturns\n";
+    cout << "• Regular monthly contributions help average costs\n";
+    cout << "\n";
 }
 
 void displaySummary(investment& inv) {
@@ -54,36 +54,36 @@ void displaySummary(investment& inv) {
         return;
     }
 
-    cout << "\n╔════════════════════════════════════════════════╗\n";
-    cout << "║           INVESTMENT SUMMARY                   ║\n";
-    cout << "╠════════════════════════════════════════════════╣\n";
-    cout << "║ Initial Investment:    $" << setw(18) << fixed << setprecision(2) 
-         << inv.initial_amount << " ║\n";
-    cout << "║ Monthly Contribution:  $" << setw(18) << fixed << setprecision(2) 
-         << inv.monthly_amount << " ║\n";
-    cout << "║ Total Invested:        $" << setw(18) << fixed << setprecision(2) 
-         << inv.total_amount << " ║\n";
-    cout << "║ Current Value:         $" << setw(18) << fixed << setprecision(2) 
-         << inv.current_amount << " ║\n";
-    cout << "║ Duration:              " << setw(19) << inv.current_months 
-         << " months ║\n";
-    cout << "╠════════════════════════════════════════════════╣\n";
+    cout << "\n\n";
+    cout << "\tINVESTMENT SUMMARY\n";
+    cout << "\n";
+    cout << "Initial Investment: $" << setw(18) << fixed << setprecision(2) 
+         << inv.initial_amount << " \n";
+    cout << "Monthly Contribution: $" << setw(18) << fixed << setprecision(2) 
+         << inv.monthly_amount << " \n";
+    cout << "Total Invested: $" << setw(18) << fixed << setprecision(2) 
+         << inv.total_amount << " \n";
+    cout << "Current Value: $" << setw(18) << fixed << setprecision(2) 
+         << inv.current_amount << " \n";
+    cout << "Duration: " << setw(19) << inv.current_months 
+         << "Months \n";
+    cout << "\n";
     
     float profit_loss = inv.current_amount - inv.total_amount;
     float percentage = (profit_loss / inv.total_amount) * 100.0f;
     
     if (profit_loss >= 0) {
-        cout << "║ 📈 PROFIT:             $" << setw(18) << fixed << setprecision(2) 
-             << profit_loss << " ║\n";
-        cout << "║ Return:                " << setw(18) << fixed << setprecision(2) 
-             << percentage << "% ║\n";
+        cout << "PROFIT: $" << setw(18) << fixed << setprecision(2) 
+             << profit_loss << " \n";
+        cout << "Return: " << setw(18) << fixed << setprecision(2) 
+             << percentage << "%\n";
     } else {
-        cout << "║ 📉 LOSS:               $" << setw(18) << fixed << setprecision(2) 
-             << abs(profit_loss) << " ║\n";
-        cout << "║ Loss:                  " << setw(18) << fixed << setprecision(2) 
-             << percentage << "% ║\n";
+        cout << "LOSS: $" << setw(18) << fixed << setprecision(2) 
+             << abs(profit_loss) << "\n";
+        cout << "Loss: " << setw(18) << fixed << setprecision(2) 
+             << percentage << "%\n";
     }
-    cout << "╚════════════════════════════════════════════════╝\n";
+    cout << "\n";
 }
 
 int main() {
@@ -151,16 +151,16 @@ int main() {
             }
             
             case 7: {
-                cout << "\n╔════════════════════════════════════════╗\n";
-                cout << "║  Thank you for using our simulator!    ║\n";
-                cout << "║  Remember: Practice makes perfect!     ║\n";
-                cout << "╚════════════════════════════════════════╝\n\n";
+                cout << "\n\n";
+                cout << "\tThank you for using our simulator\n";
+                cout << "\tRemember: Practice makes perfect!\n";
+                cout << "\n";
                 running = false;
                 break;
             }
             
             default: {
-                cout << "\n✗ Invalid choice. Please enter a number between 1 and 7.\n";
+                cout << "\nInvalid choice. Please enter a number between 1 and 7.\n";
                 break;
             }
         }
