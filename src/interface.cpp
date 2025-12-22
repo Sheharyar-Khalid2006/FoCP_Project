@@ -1,10 +1,13 @@
 #include "interface.hpp"
+#include "validation.h"
 #include <iostream>
 #include <iomanip>
 #include <random>
 #include <cmath>
 #include <sstream>
 #include <algorithm>
+#include "market.h"
+#include<thread>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -14,36 +17,94 @@
 
 using namespace std;
 
-void displayMarketTypes() {
-    cout << "\n╔═════════════════════════════════════════════════════════╗\n";
-    cout << "║               SELECT MARKET CONDITION                   ║\n";
-    cout << "╠═════════════════════════════════════════════════════════╣\n";
-    cout << "║  1. STABLE MARKET                                       ║\n";
-    cout << "║     • Low volatility                                    ║\n";
-    cout << "║     • Fluctuation: ±2%                                  ║\n";
-    cout << "║     • Best for: Conservative investors                  ║\n";
-    cout << "║                                                         ║\n";
-    cout << "║  2. VOLATILE MARKET                                     ║\n";
-    cout << "║     • High volatility                                   ║\n";
-    cout << "║     • Fluctuation: ±5%                                  ║\n";
-    cout << "║     • Best for: Risk-tolerant investors                 ║\n";
-    cout << "║                                                         ║\n";
-    cout << "║  3. BULLISH MARKET (Bull Run)                          ║\n";
-    cout << "║     • Generally upward trend                            ║\n";
-    cout << "║     • Fluctuation: -1% to +6%                          ║\n";
-    cout << "║     • Best for: Growth seekers                          ║\n";
-    cout << "║                                                         ║\n";
-    cout << "║  4. BEARISH MARKET (Bear Market)                       ║\n";
-    cout << "║     • Generally downward trend                          ║\n";
-    cout << "║     • Fluctuation: -6% to +1%                          ║\n";
-    cout << "║     • Best for: Testing loss tolerance                  ║\n";
-    cout << "║                                                         ║\n";
-    cout << "║  5. CRISIS MARKET                                       ║\n";
-    cout << "║     • Extreme volatility                                ║\n";
-    cout << "║     • Fluctuation: ±10%                                 ║\n";
-    cout << "║     • Best for: Experienced investors only              ║\n";
-    cout << "╚═════════════════════════════════════════════════════════╝\n";
+void simulate_investment(investment& inv) {
+    int choice;
+    bool exit = false;
+
+    std::cout << "\n\n╔════════════════════════════════════════════════════════╗\n";
+    std::cout << "║              STARTING SIMULATION                       ║\n";
+    std::cout << "╚════════════════════════════════════════════════════════╝\n\n";
+
+    std::cout << "Month | Fluctuation | Contribution | Portfolio Value\n";
+    std::cout << "------|-------------|--------------|----------------\n";
+
+    // Loop through each month
+    for (int month = 1; month <= inv.total_months; month++) {
+        inv.current_months = month;
+
+        // Generate market fluctuation based on selected market type
+        float fluctuation = generateMarketFluctuation(inv.market);
+
+        // Apply fluctuation to current value
+        inv.current_amount = nextvalue(inv.current_amount, fluctuation);
+
+        // Add monthly contribution
+        applyMonthlyContribution(inv);
+
+        // Record this month's value
+        inv.monthly_values.push_back(inv.current_amount);
+
+        // Display progress
+        std::cout << std::setw(5) << month << " | "
+            << std::setw(10) << std::fixed << std::setprecision(2) << fluctuation << "% | "
+            << std::setw(11) << inv.monthly_amount << " | "
+            << std::setw(15) << inv.current_amount << "\n";
+
+        // Display market events for significant fluctuations
+        displayMarketEvent(inv.market, fluctuation);
+
+        // Update progress bar every few months
+        if (month % 3 == 0 || month == inv.total_months) {
+            std::cout << "\n";
+            displayProgressBar(month, inv.total_months, inv.current_amount);
+            std::cout << "\n\n";
+        }
+
+        // Check if loss threshold has been reached
+        if (check_loss(inv)) {
+            while (true) {
+                std::cout << "\nWhat would you like to do?\n";
+                std::cout << "1. Exit simulation (cut losses)\n";
+                std::cout << "2. Continue investing (risk it all)\n";
+                std::cout << "Enter choice: ";
+                choice = getintinput();
+
+                if (choice == 1) {
+                    std::cout << "\n Wise decision! Sometimes it's better to be safe than sorry.\n";
+                    std::cout << "   Final portfolio value: $" << std::fixed << std::setprecision(2)
+                        << inv.current_amount << "\n";
+                    exit = true;
+                    break;
+                }
+                else if (choice == 2) {
+                    std::cout << "\n Bold choice! Risk it for the biscuit.\n";
+                    std::cout << "   Be prepared to face the cruelty of the business world.\n";
+                    break;
+                }
+                else {
+                    std::cout << "\n✗ Please enter 1 or 2.\n";
+                }
+            }
+            if (exit) break;
+        }
+
+        // Small delay for visualization
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+    std::cout << "\n";
+    std::cout << "─────────────────────────────────────────────────────────\n";
+
+    // Final statistics
+    total_investment(inv);
+    profit_loss(inv);
+
+    std::cout << "\n╔════════════════════════════════════════════════════════╗\n";
+    std::cout << "║           SIMULATION COMPLETED                         ║\n";
+    std::cout << "╚════════════════════════════════════════════════════════╝\n";
 }
+
+
 
 int selectMarketType() {
     int choice;
@@ -51,14 +112,7 @@ int selectMarketType() {
     
     while (true) {
         cout << "\nSelect market type (1-5): ";
-        cin >> choice;
-        
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Invalid input. Please enter a number between 1 and 5.\n";
-            continue;
-        }
+        choice = getintinput();
         
         if (choice >= 1 && choice <= 5) {
             return choice;
@@ -68,88 +122,10 @@ int selectMarketType() {
     }
 }
 
-float generateMarketFluctuation(int marketType) {
-    random_device rd;
-    mt19937 gen(rd());
-    
-    float fluctuation = 0.0f;
-    
-    switch (marketType) {
-        case STABLE: {
-            // Stable market: -2% to +2%
-            uniform_real_distribution<float> dis(-2.0f, 2.0f);
-            fluctuation = dis(gen);
-            break;
-        }
-        
-        case VOLATILE: {
-            // Volatile market: -5% to +5%
-            uniform_real_distribution<float> dis(-5.0f, 5.0f);
-            fluctuation = dis(gen);
-            break;
-        }
-        
-        case BULLISH: {
-            // Bullish market: -1% to +6% (bias towards positive)
-            uniform_real_distribution<float> dis(-1.0f, 6.0f);
-            fluctuation = dis(gen);
-            break;
-        }
-        
-        case BEARISH: {
-            // Bearish market: -6% to +1% (bias towards negative)
-            uniform_real_distribution<float> dis(-6.0f, 1.0f);
-            fluctuation = dis(gen);
-            break;
-        }
-        
-        case CRISIS: {
-            // Crisis market: -10% to +10% (extreme volatility)
-            uniform_real_distribution<float> dis(-10.0f, 10.0f);
-            fluctuation = dis(gen);
-            break;
-        }
-        
-        default: {
-            uniform_real_distribution<float> dis(-2.0f, 2.0f);
-            fluctuation = dis(gen);
-            break;
-        }
-    }
-    
-    return fluctuation;
-}
 
-void displayProgressBar(int current, int total, float currentValue) {
-    int barWidth = 40;
-    float progress = static_cast<float>(current) / total;
-    int pos = static_cast<int>(barWidth * progress);
-    
-    cout << "\r[";
-    for (int i = 0; i < barWidth; ++i) {
-        if (i < pos) cout << "█";
-        else if (i == pos) cout << "▓";
-        else cout << "░";
-    }
-    cout << "] " << int(progress * 100.0) << "% | Month " << current << "/" << total;
-    cout << " | Value: $" << fixed << setprecision(2) << currentValue;
-    cout << flush;
-}
 
-void displayInvestmentDetails(investment& inv) {
-    cout << "\n╔═════════════════════════════════════════════════════╗\n";
-    cout << "║           INVESTMENT CONFIGURATION                  ║\n";
-    cout << "╠═════════════════════════════════════════════════════╣\n";
-    cout << "║ Initial Investment:     $" << setw(23) << fixed << setprecision(2) 
-         << inv.initial_amount << " ║\n";
-    cout << "║ Monthly Contribution:   $" << setw(23) << fixed << setprecision(2) 
-         << inv.monthly_amount << " ║\n";
-    cout << "║ Duration:               " << setw(23) << inv.total_months << " months ║\n";
-    cout << "║ Loss Threshold:         " << setw(23) << fixed << setprecision(1) 
-         << inv.safe_loss_percent << "% ║\n";
-    cout << "║ Market Type:            " << setw(23) << getMarketTypeName(inv.market) << " ║\n";
-    cout << "╚═════════════════════════════════════════════════════╝\n";
-}
+
+
 
 void updateLineChart(const vector<float>& values, int currentMonth) {
     if (values.empty() || currentMonth < 1) return;
@@ -203,28 +179,6 @@ void clearScreen() {
 #endif
 }
 
-void displayMarketEvent(int marketType, float fluctuation) {
-    if (abs(fluctuation) < 1.0f) return; // Don't show minor fluctuations
-    
-    cout << "  📊 ";
-    
-    if (fluctuation > 5.0f) {
-        cout << "Major rally! Market surged " << fixed << setprecision(2) << fluctuation << "%";
-    } else if (fluctuation > 3.0f) {
-        cout << "Strong gains! Market up " << fixed << setprecision(2) << fluctuation << "%";
-    } else if (fluctuation > 1.0f) {
-        cout << "Modest growth, market up " << fixed << setprecision(2) << fluctuation << "%";
-    } else if (fluctuation < -5.0f) {
-        cout << "⚠️ Market crash! Down " << fixed << setprecision(2) << abs(fluctuation) << "%";
-    } else if (fluctuation < -3.0f) {
-        cout << "⚠️ Sharp decline! Down " << fixed << setprecision(2) << abs(fluctuation) << "%";
-    } else if (fluctuation < -1.0f) {
-        cout << "Market dip, down " << fixed << setprecision(2) << abs(fluctuation) << "%";
-    }
-    
-    cout << "\n";
-}
-
 string formatCurrency(float amount) {
     ostringstream oss;
     oss << "$" << fixed << setprecision(2) << amount;
@@ -235,16 +189,7 @@ void displaySeparator() {
     cout << "─────────────────────────────────────────────────────────\n";
 }
 
-string getMarketTypeName(int marketType) {
-    switch (marketType) {
-        case STABLE: return "Stable";
-        case VOLATILE: return "Volatile";
-        case BULLISH: return "Bullish";
-        case BEARISH: return "Bearish";
-        case CRISIS: return "Crisis";
-        default: return "Unknown";
-    }
-}
+
 
 void displayProfitLoss(float amount) {
     if (amount >= 0) {
@@ -252,4 +197,36 @@ void displayProfitLoss(float amount) {
     } else {
         cout << "📉 Loss: " << formatCurrency(amount);
     }
+}
+
+
+void displayMarketTypes() {
+    cout << "\n╔═════════════════════════════════════════════════════════╗\n";
+    cout << "║               SELECT MARKET CONDITION                   ║\n";
+    cout << "╠═════════════════════════════════════════════════════════╣\n";
+    cout << "║  1. STABLE MARKET                                       ║\n";
+    cout << "║     • Low volatility                                    ║\n";
+    cout << "║     • Fluctuation: ±2%                                  ║\n";
+    cout << "║     • Best for: Conservative investors                  ║\n";
+    cout << "║                                                         ║\n";
+    cout << "║  2. VOLATILE MARKET                                     ║\n";
+    cout << "║     • High volatility                                   ║\n";
+    cout << "║     • Fluctuation: ±5%                                  ║\n";
+    cout << "║     • Best for: Risk-tolerant investors                 ║\n";
+    cout << "║                                                         ║\n";
+    cout << "║  3. BULLISH MARKET (Bull Run)                          ║\n";
+    cout << "║     • Generally upward trend                            ║\n";
+    cout << "║     • Fluctuation: -1% to +6%                          ║\n";
+    cout << "║     • Best for: Growth seekers                          ║\n";
+    cout << "║                                                         ║\n";
+    cout << "║  4. BEARISH MARKET (Bear Market)                       ║\n";
+    cout << "║     • Generally downward trend                          ║\n";
+    cout << "║     • Fluctuation: -6% to +1%                          ║\n";
+    cout << "║     • Best for: Testing loss tolerance                  ║\n";
+    cout << "║                                                         ║\n";
+    cout << "║  5. CRISIS MARKET                                       ║\n";
+    cout << "║     • Extreme volatility                                ║\n";
+    cout << "║     • Fluctuation: ±10%                                 ║\n";
+    cout << "║     • Best for: Experienced investors only              ║\n";
+    cout << "╚═════════════════════════════════════════════════════════╝\n";
 }

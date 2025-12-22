@@ -1,17 +1,62 @@
-#include"market.h"
+﻿#include"market.h"
 #include<cstdlib>
 #include<ctime>
+#include<random>
+#include<string>
+#include <iostream>
+#include<iomanip>
 
-void initializeRandom() {
-	srand(time(0));
-}
 
-float generateMarketFluctuation() {
-	// Random integer from -1500 to +1500
-	int randomValue = rand() % 3000 - 1500;
+float generateMarketFluctuation(int marketType) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
 
-	// Convert to percentage with 2 decimals: -15.00 to +15.00
-	return randomValue / 100.0;
+    float fluctuation = 0.0f;
+
+    switch (marketType) {
+    case STABLE: {
+        // Stable market: -2% to +2%
+        std::uniform_real_distribution<float> dis(-2.0f, 2.0f);
+        fluctuation = dis(gen);
+        break;
+    }
+
+    case VOLATILE: {
+        // Volatile market: -5% to +5%
+        std::uniform_real_distribution<float> dis(-5.0f, 5.0f);
+        fluctuation = dis(gen);
+        break;
+    }
+
+    case BULLISH: {
+        // Bullish market: -1% to +6% (bias towards positive)
+        std::uniform_real_distribution<float> dis(-1.0f, 6.0f);
+        fluctuation = dis(gen);
+        break;
+    }
+
+    case BEARISH: {
+        // Bearish market: -6% to +1% (bias towards negative)
+        std::uniform_real_distribution<float> dis(-6.0f, 1.0f);
+        fluctuation = dis(gen);
+        break;
+    }
+
+    case CRISIS: {
+        // Crisis market: -10% to +10% (extreme volatility)
+        std::uniform_real_distribution<float> dis(-10.0f, 10.0f);
+        fluctuation = dis(gen);
+        break;
+    }
+
+    default: {
+        std::uniform_real_distribution<float> dis(-2.0f, 2.0f);
+        fluctuation = dis(gen);
+        break;
+    }
+    }
+
+    return fluctuation;
 }
 
 float getStockFluctuation() {
@@ -50,4 +95,43 @@ float applyMarketTrend(float baseFluctuation, int monthNumber) {
 	}
 
 	return baseFluctuation + trend;
+}
+
+void displayMarketEvent(int marketType, float fluctuation) {
+    if (abs(fluctuation) < 1.0f) return; // Don't show minor fluctuations
+
+    std::cout << "  📊 ";
+
+    if (fluctuation > 5.0f) {
+        std::cout << "Major rally! Market surged " << std::fixed << std::setprecision(2) << fluctuation << "%";
+    }
+    else if (fluctuation > 3.0f) {
+        std::cout << "Strong gains! Market up " << std::fixed << std::setprecision(2) << fluctuation << "%";
+    }
+    else if (fluctuation > 1.0f) {
+        std::cout << "Modest growth, market up " << std::fixed <<std:: setprecision(2) << fluctuation << "%";
+    }
+    else if (fluctuation < -5.0f) {
+        std::cout << "⚠️ Market crash! Down " << std::fixed << std::setprecision(2) << abs(fluctuation) << "%";
+    }
+    else if (fluctuation < -3.0f) {
+        std::cout << "⚠️ Sharp decline! Down " << std::fixed << std::setprecision(2) << abs(fluctuation) << "%";
+    }
+    else if (fluctuation < -1.0f) {
+        std::cout << "Market dip, down " << std::fixed << std::setprecision(2) << abs(fluctuation) << "%";
+    }
+
+    std::cout << "\n";
+}
+
+
+std::string getMarketTypeName(int marketType) {
+    switch (marketType) {
+    case STABLE: return "Stable";
+    case VOLATILE: return "Volatile";
+    case BULLISH: return "Bullish";
+    case BEARISH: return "Bearish";
+    case CRISIS: return "Crisis";
+    default: return "Unknown";
+    }
 }
