@@ -105,7 +105,7 @@ int main() {
                 resetInvestment(myInvestment);
                 start_investment(myInvestment);
                 myInvestment.current_amount = myInvestment.initial_amount;
-                simulate_investment(myInvestment);
+                start_investment(myInvestment);
                 
                 cout << "\n✓ Simulation completed!\n";
                 displaySummary(myInvestment);

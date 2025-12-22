@@ -1,0 +1,50 @@
+[
+{
+  "directory": "D:/FoCP_Project/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEBUG_BUILD -DNOMINMAX -DWIN32_LEAN_AND_MEAN @CMakeFiles/InvestmentSimulator.dir/includes_CXX.rsp -g -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -static-libgcc -static-libstdc++ -O0 -g -o CMakeFiles\\InvestmentSimulator.dir\\src\\main.cpp.obj -c D:\\FoCP_Project\\src\\main.cpp",
+  "file": "D:/FoCP_Project/src/main.cpp",
+  "output": "CMakeFiles/InvestmentSimulator.dir/src/main.cpp.obj"
+},
+{
+  "directory": "D:/FoCP_Project/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEBUG_BUILD -DNOMINMAX -DWIN32_LEAN_AND_MEAN @CMakeFiles/InvestmentSimulator.dir/includes_CXX.rsp -g -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -static-libgcc -static-libstdc++ -O0 -g -o CMakeFiles\\InvestmentSimulator.dir\\src\\interface.cpp.obj -c D:\\FoCP_Project\\src\\interface.cpp",
+  "file": "D:/FoCP_Project/src/interface.cpp",
+  "output": "CMakeFiles/InvestmentSimulator.dir/src/interface.cpp.obj"
+},
+{
+  "directory": "D:/FoCP_Project/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEBUG_BUILD -DNOMINMAX -DWIN32_LEAN_AND_MEAN @CMakeFiles/InvestmentSimulator.dir/includes_CXX.rsp -g -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -static-libgcc -static-libstdc++ -O0 -g -o CMakeFiles\\InvestmentSimulator.dir\\src\\graph.cpp.obj -c D:\\FoCP_Project\\src\\graph.cpp",
+  "file": "D:/FoCP_Project/src/graph.cpp",
+  "output": "CMakeFiles/InvestmentSimulator.dir/src/graph.cpp.obj"
+},
+{
+  "directory": "D:/FoCP_Project/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEBUG_BUILD -DNOMINMAX -DWIN32_LEAN_AND_MEAN @CMakeFiles/InvestmentSimulator.dir/includes_CXX.rsp -g -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -static-libgcc -static-libstdc++ -O0 -g -o CMakeFiles\\InvestmentSimulator.dir\\src\\investment.cpp.obj -c D:\\FoCP_Project\\src\\investment.cpp",
+  "file": "D:/FoCP_Project/src/investment.cpp",
+  "output": "CMakeFiles/InvestmentSimulator.dir/src/investment.cpp.obj"
+},
+{
+  "directory": "D:/FoCP_Project/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEBUG_BUILD -DNOMINMAX -DWIN32_LEAN_AND_MEAN @CMakeFiles/InvestmentSimulator.dir/includes_CXX.rsp -g -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -static-libgcc -static-libstdc++ -O0 -g -o CMakeFiles\\InvestmentSimulator.dir\\src\\validation.cpp.obj -c D:\\FoCP_Project\\src\\validation.cpp",
+  "file": "D:/FoCP_Project/src/validation.cpp",
+  "output": "CMakeFiles/InvestmentSimulator.dir/src/validation.cpp.obj"
+},
+{
+  "directory": "D:/FoCP_Project/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEBUG_BUILD -DNOMINMAX -DWIN32_LEAN_AND_MEAN @CMakeFiles/InvestmentSimulator.dir/includes_CXX.rsp -g -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -static-libgcc -static-libstdc++ -O0 -g -o CMakeFiles\\InvestmentSimulator.dir\\src\\market.cpp.obj -c D:\\FoCP_Project\\src\\market.cpp",
+  "file": "D:/FoCP_Project/src/market.cpp",
+  "output": "CMakeFiles/InvestmentSimulator.dir/src/market.cpp.obj"
+},
+{
+  "directory": "D:/FoCP_Project/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEBUG_BUILD -DNOMINMAX -DWIN32_LEAN_AND_MEAN @CMakeFiles/InvestmentSimulator.dir/includes_CXX.rsp -g -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -static-libgcc -static-libstdc++ -O0 -g -o CMakeFiles\\InvestmentSimulator.dir\\src\\pbPlots.cpp.obj -c D:\\FoCP_Project\\src\\pbPlots.cpp",
+  "file": "D:/FoCP_Project/src/pbPlots.cpp",
+  "output": "CMakeFiles/InvestmentSimulator.dir/src/pbPlots.cpp.obj"
+},
+{
+  "directory": "D:/FoCP_Project/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDEBUG_BUILD -DNOMINMAX -DWIN32_LEAN_AND_MEAN @CMakeFiles/InvestmentSimulator.dir/includes_CXX.rsp -g -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -static-libgcc -static-libstdc++ -O0 -g -o CMakeFiles\\InvestmentSimulator.dir\\src\\supportLib.cpp.obj -c D:\\FoCP_Project\\src\\supportLib.cpp",
+  "file": "D:/FoCP_Project/src/supportLib.cpp",
+  "output": "CMakeFiles/InvestmentSimulator.dir/src/supportLib.cpp.obj"
+}
+]

@@ -20,6 +20,7 @@ set(SOURCES
     src/graph.cpp
     src/investment.cpp
     src/validation.cpp
+    src/market.cpp
     src/pbPlots.cpp
     src/supportLib.cpp
 )
@@ -30,6 +31,7 @@ set(HEADERS
     src/graph.hpp
     src/investment.h
     src/validation.h
+    src/market.h
     src/pbPlots.hpp
     src/supportLib.hpp
 )
