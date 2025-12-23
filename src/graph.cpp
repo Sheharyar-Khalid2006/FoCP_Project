@@ -17,6 +17,7 @@ bool generateInvestmentChart(investment& inv, std::string filename) {
 
         // Prepare y-axis (portfolio values)
         std::vector<double> values;
+        
         for (size_t i = 0; i < inv.monthly_values.size(); i++) {
             values.push_back(static_cast<double>(inv.monthly_values[i]));
         }

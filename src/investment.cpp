@@ -61,7 +61,8 @@ void profit_loss(investment& inv) {
 bool check_loss(investment& inv) {
 	profit_loss(inv);
 	
-	if (inv.profit_loss <= -inv.safe_loss_percent) {
+	float checkloss = 100*(inv.current_amount - inv.total_amount)/inv.total_amount;
+	if (checkloss <= -inv.safe_loss_percent) {
 		std::cout << "\n\n";
 		std::cout << "\tLOSS THRESHOLD REACHED!\n";
 		std::cout << "\tCurrent Loss: " << std::fixed << std::setprecision(2) 
@@ -134,7 +135,7 @@ void displayProgressBar(int current, int total, float currentValue) {
 	for (int i = 0; i < barWidth; ++i) {
 		if (i < pos) std::cout << "[]";
 		else if (i == pos) std::cout << "[]";
-		else std::cout << "[]";
+		else std::cout << "  ";
 	}
 	std::cout << "] " << int(progress * 100.0) << "% | Month " << current << "/" << total;
 	std::cout << " | Value: $" << std::fixed << std::setprecision(2) << currentValue;

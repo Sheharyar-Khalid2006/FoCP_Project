@@ -21,6 +21,7 @@ void simulate_investment(investment& inv) {
     int choice;
     bool exit = false;
     float fluctuation;
+    bool loss = false;
 
     std::cout << "\t\tSTARTING SIMULATION\n";
     std::cout << "\n";
@@ -60,9 +61,11 @@ void simulate_investment(investment& inv) {
             displayProgressBar(month, inv.total_months, inv.current_amount);
             std::cout << "\n\n";
         }
-
+        total_investment(inv);
         // Check if loss threshold has been reached
+        if(!loss){
         if (check_loss(inv)) {
+            loss = true;
             while (true) {
                 std::cout << "\nWhat would you like to do?\n";
                 std::cout << "1. Exit simulation (cut losses)\n";
@@ -88,7 +91,7 @@ void simulate_investment(investment& inv) {
                 }
             }
             if (exit) break;
-        }
+        }}
 
         // Small delay for visualization
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
