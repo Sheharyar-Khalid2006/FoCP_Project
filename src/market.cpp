@@ -11,46 +11,46 @@ float generateMarketFluctuation(int marketType) {
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    float fluctuation = 0.0f;
+    float fluctuation = 0.0;
 
     switch (marketType) {
     case STABLE: {
         // Stable market: -2% to +2%
-        std::uniform_real_distribution<float> dis(-2.0f, 2.0f);
+        std::uniform_real_distribution<float> dis(-2.0, 2.0);
         fluctuation = dis(gen);
         break;
     }
 
     case VOLATILE: {
         // Volatile market: -5% to +5%
-        std::uniform_real_distribution<float> dis(-5.0f, 5.0f);
+        std::uniform_real_distribution<float> dis(-5.0, 5.0);
         fluctuation = dis(gen);
         break;
     }
 
     case BULLISH: {
         // Bullish market: -1% to +6% (bias towards positive)
-        std::uniform_real_distribution<float> dis(-1.0f, 6.0f);
+        std::uniform_real_distribution<float> dis(-1.0, 6.0);
         fluctuation = dis(gen);
         break;
     }
 
     case BEARISH: {
         // Bearish market: -6% to +1% (bias towards negative)
-        std::uniform_real_distribution<float> dis(-6.0f, 1.0f);
+        std::uniform_real_distribution<float> dis(-6.0, 1.0);
         fluctuation = dis(gen);
         break;
     }
 
     case CRISIS: {
         // Crisis market: -10% to +10% (extreme volatility)
-        std::uniform_real_distribution<float> dis(-10.0f, 10.0f);
+        std::uniform_real_distribution<float> dis(-10.0, 10.0);
         fluctuation = dis(gen);
         break;
     }
 
     default: {
-        std::uniform_real_distribution<float> dis(-2.0f, 2.0f);
+        std::uniform_real_distribution<float> dis(-2.0, 2.0);
         fluctuation = dis(gen);
         break;
     }
@@ -59,7 +59,7 @@ float generateMarketFluctuation(int marketType) {
     return fluctuation;
 }
 
-float getStockFluctuation() {
+/*float getStockFluctuation() {
 	// Random integer from -1000 to +1000
 	int randomNumber = rand() % 2000 - 1000;
 
@@ -95,7 +95,7 @@ float applyMarketTrend(float baseFluctuation, int monthNumber) {
 	}
 
 	return baseFluctuation + trend;
-}
+}*/
 
 void displayMarketEvent(int marketType, float fluctuation) {
     if (abs(fluctuation) < 1.0f) return; // Don't show minor fluctuations

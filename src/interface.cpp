@@ -20,6 +20,7 @@ using namespace std;
 void simulate_investment(investment& inv) {
     int choice;
     bool exit = false;
+    float fluctuation;
 
     std::cout << "\t\tSTARTING SIMULATION\n";
     std::cout << "\n";
@@ -32,11 +33,12 @@ void simulate_investment(investment& inv) {
         inv.current_months = month;
 
         // Generate market fluctuation based on selected market type
-        float fluctuation = generateMarketFluctuation(inv.market);
+        fluctuation = generateMarketFluctuation(inv.market);
 
         // Apply fluctuation to current value
         inv.current_amount = nextvalue(inv.current_amount, fluctuation);
 
+        profit_loss(inv);
         // Add monthly contribution
         applyMonthlyContribution(inv);
 
@@ -78,6 +80,7 @@ void simulate_investment(investment& inv) {
                 else if (choice == 2) {
                     std::cout << "\nBold choice! Risk it for the biscuit.\n";
                     std::cout << "Be prepared to face the cruelty of the business world.\n";
+                    inv.stoploss = 100;
                     break;
                 }
                 else {

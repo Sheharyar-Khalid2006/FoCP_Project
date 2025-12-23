@@ -3,6 +3,7 @@
 #include <limits>
 #include "investment.h"
 #include "validation.h"
+#include "interface.hpp"
 #include "graph.hpp"
 
 using namespace std;
@@ -105,8 +106,8 @@ int main() {
                 resetInvestment(myInvestment);
                 start_investment(myInvestment);
                 myInvestment.current_amount = myInvestment.initial_amount;
-                start_investment(myInvestment);
-                
+                //start_investment(myInvestment);
+                simulate_investment(myInvestment);
                 cout << "\nSimulation completed!\n";
                 displaySummary(myInvestment);
                 break;

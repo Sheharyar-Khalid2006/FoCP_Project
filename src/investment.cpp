@@ -51,11 +51,11 @@ void start_investment(investment& inv) {
 }
 
 float nextvalue(float previous, float percent_change) {
-	return previous * (1.0f + (percent_change / 100.0f));
+	return (previous  + previous*(percent_change / 100));
 }
 
 void profit_loss(investment& inv) {
-	inv.profit_loss = 100.0f * (inv.current_amount - inv.initial_amount) / inv.initial_amount;
+	inv.profit_loss = 100.0 * (inv.current_amount - inv.initial_amount) / inv.initial_amount;
 }
 
 bool check_loss(investment& inv) {
@@ -150,9 +150,9 @@ void displayInvestmentDetails(investment& inv) {
 		<< inv.initial_amount << "\n";
 	std::cout << "\tMonthly Contribution: $" << std::setw(23) << std::fixed << std::setprecision(2)
 		<< inv.monthly_amount << "\n";
-	std::cout << "Duration: " << std::setw(23) << inv.total_months << " months ║\n";
+	std::cout << "Duration: " << std::setw(23) << inv.total_months << " months \n";
 	std::cout << "Loss Threshold:" << std::setw(23) << std::fixed << std::setprecision(1)
 		<< inv.safe_loss_percent << "%\n";
-	std::cout << "Market Type: " << std::setw(23) << getMarketTypeName(inv.market) << " ║\n";
+	std::cout << "Market Type: " << std::setw(23) << getMarketTypeName(inv.market) << "\n";
 	std::cout << "---------------------------\n";
 }
