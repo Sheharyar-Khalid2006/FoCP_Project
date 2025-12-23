@@ -62,14 +62,14 @@ bool check_loss(investment& inv) {
 	profit_loss(inv);
 	
 	if (inv.profit_loss <= -inv.safe_loss_percent) {
-		std::cout << "\n\n  ═══════════════════════════════════════════════════ \n";
-		std::cout << "     LOSS THRESHOLD REACHED!\n";
-		std::cout << "     Current Loss: " << std::fixed << std::setprecision(2) 
+		std::cout << "\n\n";
+		std::cout << "\tLOSS THRESHOLD REACHED!\n";
+		std::cout << "\tCurrent Loss: " << std::fixed << std::setprecision(2) 
 		          << inv.profit_loss << "%\n";
-		std::cout << "     Amount Lost: $" << std::fixed << std::setprecision(2) 
+		std::cout << "\tAmount Lost: $" << std::fixed << std::setprecision(2) 
 		          << (inv.initial_amount - inv.current_amount) << "\n";
-		std::cout << "     It is recommended that you reclaim your invested amount.\n";
-		std::cout << "  ═══════════════════════════════════════════════════ \n";
+		std::cout << "\tIt is recommended that you reclaim your invested amount.\n";
+		std::cout << "\n";
 		return true;
 	}
 	return false;
@@ -103,20 +103,20 @@ void resetInvestment(investment& inv) {
 bool checkVirtualBalance(investment& inv, float available_balance, float min_invest) {
 	// User invests more than they have
 	if (inv.initial_amount > available_balance) {
-		std::cout << "\n✗ Insufficient balance.\n";
-		std::cout << "  Required: $" << std::fixed << std::setprecision(2) 
+		std::cout << "\nInsufficient balance.\n";
+		std::cout << "Required: $" << std::fixed << std::setprecision(2) 
 		          << inv.initial_amount << "\n";
-		std::cout << "  Available: $" << std::fixed << std::setprecision(2) 
+		std::cout << "Available: $" << std::fixed << std::setprecision(2) 
 		          << available_balance << "\n";
 		return false;
 	}
 
 	// User has insufficient balance to buy the currency
 	else if (min_invest > available_balance) {
-		std::cout << "\n✗ Insufficient balance.\n";
-		std::cout << "  Minimum required: $" << std::fixed << std::setprecision(2) 
+		std::cout << "\nInsufficient balance.\n";
+		std::cout << "Minimum required: $" << std::fixed << std::setprecision(2) 
 		          << min_invest << "\n";
-		std::cout << "  Available: $" << std::fixed << std::setprecision(2) 
+		std::cout << "Available: $" << std::fixed << std::setprecision(2) 
 		          << available_balance << "\n";
 		return false;
 	}
@@ -132,9 +132,9 @@ void displayProgressBar(int current, int total, float currentValue) {
 
 	std::cout << "\r[";
 	for (int i = 0; i < barWidth; ++i) {
-		if (i < pos) std::cout << "█";
-		else if (i == pos) std::cout << "▓";
-		else std::cout << "░";
+		if (i < pos) std::cout << "[]";
+		else if (i == pos) std::cout << "[]";
+		else std::cout << "[]";
 	}
 	std::cout << "] " << int(progress * 100.0) << "% | Month " << current << "/" << total;
 	std::cout << " | Value: $" << std::fixed << std::setprecision(2) << currentValue;
@@ -143,16 +143,16 @@ void displayProgressBar(int current, int total, float currentValue) {
 
 
 void displayInvestmentDetails(investment& inv) {
-	std::cout << "\n╔═════════════════════════════════════════════════════╗\n";
-	std::cout << "║           INVESTMENT CONFIGURATION                  ║\n";
-	std::cout << "╠═════════════════════════════════════════════════════╣\n";
-	std::cout << "║ Initial Investment:     $" << std::setw(23) << std::fixed << std::setprecision(2)
-		<< inv.initial_amount << " ║\n";
-	std::cout << "║ Monthly Contribution:   $" << std::setw(23) << std::fixed << std::setprecision(2)
-		<< inv.monthly_amount << " ║\n";
-	std::cout << "║ Duration:               " << std::setw(23) << inv.total_months << " months ║\n";
-	std::cout << "║ Loss Threshold:         " << std::setw(23) << std::fixed << std::setprecision(1)
-		<< inv.safe_loss_percent << "% ║\n";
-	std::cout << "║ Market Type:            " << std::setw(23) << getMarketTypeName(inv.market) << " ║\n";
-	std::cout << "╚═════════════════════════════════════════════════════╝\n";
+	std::cout << "\n-------------------------------------------------\n";
+	std::cout << "\tINVESTMENT CONFIGURATION";
+	std::cout << "\n-------------------------------------------------\n";
+	std::cout << "Initial Investment: $" << std::setw(23) << std::fixed << std::setprecision(2)
+		<< inv.initial_amount << "\n";
+	std::cout << "\tMonthly Contribution: $" << std::setw(23) << std::fixed << std::setprecision(2)
+		<< inv.monthly_amount << "\n";
+	std::cout << "Duration: " << std::setw(23) << inv.total_months << " months ║\n";
+	std::cout << "Loss Threshold:" << std::setw(23) << std::fixed << std::setprecision(1)
+		<< inv.safe_loss_percent << "%\n";
+	std::cout << "Market Type: " << std::setw(23) << getMarketTypeName(inv.market) << " ║\n";
+	std::cout << "---------------------------\n";
 }

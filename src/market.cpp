@@ -100,7 +100,7 @@ float applyMarketTrend(float baseFluctuation, int monthNumber) {
 void displayMarketEvent(int marketType, float fluctuation) {
     if (abs(fluctuation) < 1.0f) return; // Don't show minor fluctuations
 
-    std::cout << "  📊 ";
+    std::cout << "Fluctuation";
 
     if (fluctuation > 5.0f) {
         std::cout << "Major rally! Market surged " << std::fixed << std::setprecision(2) << fluctuation << "%";
@@ -112,10 +112,10 @@ void displayMarketEvent(int marketType, float fluctuation) {
         std::cout << "Modest growth, market up " << std::fixed <<std:: setprecision(2) << fluctuation << "%";
     }
     else if (fluctuation < -5.0f) {
-        std::cout << "⚠️ Market crash! Down " << std::fixed << std::setprecision(2) << abs(fluctuation) << "%";
+        std::cout << "Market crash! Down " << std::fixed << std::setprecision(2) << abs(fluctuation) << "%";
     }
     else if (fluctuation < -3.0f) {
-        std::cout << "⚠️ Sharp decline! Down " << std::fixed << std::setprecision(2) << abs(fluctuation) << "%";
+        std::cout << "Sharp decline! Down " << std::fixed << std::setprecision(2) << abs(fluctuation) << "%";
     }
     else if (fluctuation < -1.0f) {
         std::cout << "Market dip, down " << std::fixed << std::setprecision(2) << abs(fluctuation) << "%";

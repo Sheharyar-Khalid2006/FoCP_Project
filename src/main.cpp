@@ -107,7 +107,7 @@ int main() {
                 myInvestment.current_amount = myInvestment.initial_amount;
                 start_investment(myInvestment);
                 
-                cout << "\n✓ Simulation completed!\n";
+                cout << "\nSimulation completed!\n";
                 displaySummary(myInvestment);
                 break;
             }
@@ -141,7 +141,7 @@ int main() {
             
             case 5: {
                 resetInvestment(myInvestment);
-                cout << "\n✓ Investment data has been reset.\n";
+                cout << "\nInvestment data has been reset.\n";
                 break;
             }
             
